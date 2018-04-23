@@ -1,0 +1,49 @@
+{
+  "name": "bitcli",
+  "version": "1.0.0",
+  "description": "A CLI to convert BTC to any currency provided",
+  "main": "bin/index.js",
+  "scripts": {
+    "clear": "rimraf bin",
+    "build:watch": "npm run build:node -- --watch",
+    "build:node": "npm run clear && ./node_modules/.bin/babel --out-dir bin src",
+    "build": "npm run build:node && npm run build:umd && npm run build:umd:min",
+    "lint": "./node_modules/.bin/eslint src/*.js",
+    "prepush": "npm run lint && npm run test:coverage",
+    "test": "./node_modules/.bin/mocha tests/**/*.spec.js --require babel-register --reporter nyan",
+    "test:tdd": "npm run test -- --watch",
+    "test:coverage": "nyc npm test",
+    "coveralls": "npm run test:coverage && nyc report --reporter=text-lcov | coveralls"
+  },
+  "preferGlobal": true,
+  "bin": {
+    "bitcli": "bin/index.js"
+  },
+  "nyc": {
+    "functions": 80,
+    "lines": 80,
+    "check-coverage": true,
+    "reporter": [
+      "text",
+      "html"
+    ],
+    "exclude": [
+      "tests/**"
+    ]
+  },
+ "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kavalcante/bitcli.git"
+  },
+  "keywords": [
+    "btc",
+    "cli",
+    "converter"
+  ],
+  "author": "João Vitor Cavalcante <contato@kavalcante.com> (https://kavalcante.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kavalcante/bitcli/issues"
+  },
+  "homepage": "https://github.com/kavalcante/bitcli#readme"
+}
